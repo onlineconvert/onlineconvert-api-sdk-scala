@@ -16,7 +16,7 @@ import java.util.Date
 
 import scala.collection.mutable.HashMap
 
-class InformationApi(val defBasePath: String = "http://api2.online-convert.com",
+class InformationApi(val defBasePath: String = "http://api2.online-convert.com/",
                         defApiInvoker: ApiInvoker = ApiInvoker) {
   var basePath = defBasePath
   var apiInvoker = defApiInvoker

@@ -15,7 +15,7 @@ import java.util.Date
 
 import scala.collection.mutable.HashMap
 
-class OutputApi(val defBasePath: String = "http://api2.online-convert.com",
+class OutputApi(val defBasePath: String = "http://api2.online-convert.com/",
                         defApiInvoker: ApiInvoker = ApiInvoker) {
   var basePath = defBasePath
   var apiInvoker = defApiInvoker
@@ -28,12 +28,12 @@ class OutputApi(val defBasePath: String = "http://api2.online-convert.com",
    * 
    * @param conversionId 
    * @param inputId 
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @return List[OutputFile]
    */
-  def jobsJobIdOutputGet (conversionId: String, inputId: String, token: String, key: String, jobId: String) : Option[List[OutputFile]] = {
+  def jobsJobIdOutputGet (conversionId: String, inputId: String, xOcToken: String, xOcApiKey: String, jobId: String) : Option[List[OutputFile]] = {
     // create path and map variables
     val path = "/jobs/{job_id}/output".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -53,8 +53,8 @@ class OutputApi(val defBasePath: String = "http://api2.online-convert.com",
     if(String.valueOf(inputId) != "null") queryParams += "input_id" -> inputId.toString
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = null
@@ -84,13 +84,13 @@ class OutputApi(val defBasePath: String = "http://api2.online-convert.com",
   /**
    * Get information about an output file source.
    * 
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @param fileId Id of the file to download
    * @return List[OutputFile]
    */
-  def jobsJobIdOutputFileIdGet (token: String, key: String, jobId: String, fileId: String) : Option[List[OutputFile]] = {
+  def jobsJobIdOutputFileIdGet (xOcToken: String, xOcApiKey: String, jobId: String, fileId: String) : Option[List[OutputFile]] = {
     // create path and map variables
     val path = "/jobs/{job_id}/output/{file_id}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -110,8 +110,8 @@ class OutputApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = null
@@ -141,13 +141,13 @@ class OutputApi(val defBasePath: String = "http://api2.online-convert.com",
   /**
    * Deletes a file from the output.
    * 
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @param fileId Id of the file to download
    * @return List[OutputFile]
    */
-  def jobsJobIdOutputFileIdDelete (token: String, key: String, jobId: String, fileId: String) : Option[List[OutputFile]] = {
+  def jobsJobIdOutputFileIdDelete (xOcToken: String, xOcApiKey: String, jobId: String, fileId: String) : Option[List[OutputFile]] = {
     // create path and map variables
     val path = "/jobs/{job_id}/output/{file_id}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -167,8 +167,8 @@ class OutputApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = null

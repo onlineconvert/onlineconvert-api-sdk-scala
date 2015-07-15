@@ -15,7 +15,7 @@ import java.util.Date
 
 import scala.collection.mutable.HashMap
 
-class ConversionApi(val defBasePath: String = "http://api2.online-convert.com",
+class ConversionApi(val defBasePath: String = "http://api2.online-convert.com/",
                         defApiInvoker: ApiInvoker = ApiInvoker) {
   var basePath = defBasePath
   var apiInvoker = defApiInvoker
@@ -26,12 +26,12 @@ class ConversionApi(val defBasePath: String = "http://api2.online-convert.com",
   /**
    * Get list of conversions defined for the current job.
    * 
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @return List[Conversion]
    */
-  def jobsJobIdConversionsGet (token: String, key: String, jobId: String) : Option[List[Conversion]] = {
+  def jobsJobIdConversionsGet (xOcToken: String, xOcApiKey: String, jobId: String) : Option[List[Conversion]] = {
     // create path and map variables
     val path = "/jobs/{job_id}/conversions".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -49,8 +49,8 @@ class ConversionApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = null
@@ -81,12 +81,12 @@ class ConversionApi(val defBasePath: String = "http://api2.online-convert.com",
    * Adds a new conversion to the given job.
    * 
    * @param body information for the conversion.
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @return Conversion
    */
-  def jobsJobIdConversionsPost (body: Conversion, token: String, key: String, jobId: String) : Option[Conversion] = {
+  def jobsJobIdConversionsPost (body: Conversion, xOcToken: String, xOcApiKey: String, jobId: String) : Option[Conversion] = {
     // create path and map variables
     val path = "/jobs/{job_id}/conversions".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -104,8 +104,8 @@ class ConversionApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = body
@@ -135,13 +135,13 @@ class ConversionApi(val defBasePath: String = "http://api2.online-convert.com",
   /**
    * Get list of conversions defined for the current job.
    * 
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @param conversionId Identifier for the job conversion.
    * @return Conversion
    */
-  def jobsJobIdConversionsConversionIdGet (token: String, key: String, jobId: String, conversionId: String) : Option[Conversion] = {
+  def jobsJobIdConversionsConversionIdGet (xOcToken: String, xOcApiKey: String, jobId: String, conversionId: String) : Option[Conversion] = {
     // create path and map variables
     val path = "/jobs/{job_id}/conversions/{conversion_id}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -161,8 +161,8 @@ class ConversionApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = null
@@ -192,13 +192,13 @@ class ConversionApi(val defBasePath: String = "http://api2.online-convert.com",
   /**
    * Removes the conversion for a job.
    * 
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @param conversionId Identifier for the job conversion.
    * @return Conversion
    */
-  def jobsJobIdConversionsConversionIdDelete (token: String, key: String, jobId: String, conversionId: String) : Option[Conversion] = {
+  def jobsJobIdConversionsConversionIdDelete (xOcToken: String, xOcApiKey: String, jobId: String, conversionId: String) : Option[Conversion] = {
     // create path and map variables
     val path = "/jobs/{job_id}/conversions/{conversion_id}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -218,8 +218,8 @@ class ConversionApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = null

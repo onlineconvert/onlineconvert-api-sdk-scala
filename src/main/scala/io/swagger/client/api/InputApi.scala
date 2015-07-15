@@ -15,7 +15,7 @@ import java.util.Date
 
 import scala.collection.mutable.HashMap
 
-class InputApi(val defBasePath: String = "http://api2.online-convert.com",
+class InputApi(val defBasePath: String = "http://api2.online-convert.com/",
                         defApiInvoker: ApiInvoker = ApiInvoker) {
   var basePath = defBasePath
   var apiInvoker = defApiInvoker
@@ -26,12 +26,12 @@ class InputApi(val defBasePath: String = "http://api2.online-convert.com",
   /**
    * Get list of binary source files for the conversion.hhh
    * Description of the get for the inputs of a specific job.
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @return List[InputFile]
    */
-  def jobsJobIdInputGet (token: String, key: String, jobId: String) : Option[List[InputFile]] = {
+  def jobsJobIdInputGet (xOcToken: String, xOcApiKey: String, jobId: String) : Option[List[InputFile]] = {
     // create path and map variables
     val path = "/jobs/{job_id}/input".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -49,8 +49,8 @@ class InputApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = null
@@ -81,12 +81,12 @@ class InputApi(val defBasePath: String = "http://api2.online-convert.com",
    * Cretes a new input for the current job.
    * 
    * @param body 
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @return InputFile
    */
-  def jobsJobIdInputPost (body: InputFile, token: String, key: String, jobId: String) : Option[InputFile] = {
+  def jobsJobIdInputPost (body: InputFile, xOcToken: String, xOcApiKey: String, jobId: String) : Option[InputFile] = {
     // create path and map variables
     val path = "/jobs/{job_id}/input".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -104,8 +104,8 @@ class InputApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = body
@@ -135,13 +135,13 @@ class InputApi(val defBasePath: String = "http://api2.online-convert.com",
   /**
    * Get list of conversions defined for the current job.
    * 
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @param fileId Id of the file to download
    * @return InputFile
    */
-  def jobsJobIdInputFileIdGet (token: String, key: String, jobId: String, fileId: String) : Option[InputFile] = {
+  def jobsJobIdInputFileIdGet (xOcToken: String, xOcApiKey: String, jobId: String, fileId: String) : Option[InputFile] = {
     // create path and map variables
     val path = "/jobs/{job_id}/input/{file_id}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -161,8 +161,8 @@ class InputApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = null
@@ -192,13 +192,13 @@ class InputApi(val defBasePath: String = "http://api2.online-convert.com",
   /**
    * Removes the input for a job.
    * 
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @param fileId Id of the file to download
    * @return InputFile
    */
-  def jobsJobIdInputFileIdDelete (token: String, key: String, jobId: String, fileId: String) : Option[InputFile] = {
+  def jobsJobIdInputFileIdDelete (xOcToken: String, xOcApiKey: String, jobId: String, fileId: String) : Option[InputFile] = {
     // create path and map variables
     val path = "/jobs/{job_id}/input/{file_id}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -218,8 +218,8 @@ class InputApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = null

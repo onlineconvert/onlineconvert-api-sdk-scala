@@ -17,7 +17,7 @@ import java.util.Date
 
 import scala.collection.mutable.HashMap
 
-class JobsApi(val defBasePath: String = "http://api2.online-convert.com",
+class JobsApi(val defBasePath: String = "http://api2.online-convert.com/",
                         defApiInvoker: ApiInvoker = ApiInvoker) {
   var basePath = defBasePath
   var apiInvoker = defApiInvoker
@@ -29,12 +29,12 @@ class JobsApi(val defBasePath: String = "http://api2.online-convert.com",
    * List of jobs active for the current user identified by the key.
    * It will return the list of jobs for the given user. In order to get the jobs a key or token must be provided:\n  - If the user key is provided all jobs for the current will be return.\n  - If one token is provided it will return the job assigned to that token if any.\n  \nThe request is paginated with an amount of 50 elements per page in any case.\n
    * @param status Filter the status of the job.
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param page Pagination for list of elements.
    * @return List[Job]
    */
-  def jobsGet (status: String, token: String, key: String, page: Number /* = 1 */) : Option[List[Job]] = {
+  def jobsGet (status: String, xOcToken: String, xOcApiKey: String, page: Number /* = 1 */) : Option[List[Job]] = {
     // create path and map variables
     val path = "/jobs".replaceAll("\\{format\\}","json")
 
@@ -52,8 +52,8 @@ class JobsApi(val defBasePath: String = "http://api2.online-convert.com",
     if(String.valueOf(page) != "null") queryParams += "page" -> page.toString
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = null
@@ -83,11 +83,11 @@ class JobsApi(val defBasePath: String = "http://api2.online-convert.com",
   /**
    * Creates a new Job with the user key.
    * 
-   * @param key Api key for the user to filter.
+   * @param xOcApiKey Api key for the user to filter.
    * @param body Content of the job.
    * @return Job
    */
-  def jobsPost (key: String, body: Job) : Option[Job] = {
+  def jobsPost (xOcApiKey: String, body: Job) : Option[Job] = {
     // create path and map variables
     val path = "/jobs".replaceAll("\\{format\\}","json")
 
@@ -103,7 +103,7 @@ class JobsApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = body
@@ -133,12 +133,12 @@ class JobsApi(val defBasePath: String = "http://api2.online-convert.com",
   /**
    * Get information about a Job
    * 
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @return Job
    */
-  def jobsJobIdGet (token: String, key: String, jobId: String) : Option[Job] = {
+  def jobsJobIdGet (xOcToken: String, xOcApiKey: String, jobId: String) : Option[Job] = {
     // create path and map variables
     val path = "/jobs/{job_id}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -156,8 +156,8 @@ class JobsApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = null
@@ -187,12 +187,12 @@ class JobsApi(val defBasePath: String = "http://api2.online-convert.com",
   /**
    * Cancels a job created that haven&#39;t been started. (Allow to cancel jobs in process.)
    * 
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @return Job
    */
-  def jobsJobIdDelete (token: String, key: String, jobId: String) : Option[Job] = {
+  def jobsJobIdDelete (xOcToken: String, xOcApiKey: String, jobId: String) : Option[Job] = {
     // create path and map variables
     val path = "/jobs/{job_id}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -210,8 +210,8 @@ class JobsApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = null
@@ -242,12 +242,12 @@ class JobsApi(val defBasePath: String = "http://api2.online-convert.com",
    * Modifies the job identified by the id, allows to start a created job.
    * 
    * @param body Content of the job.
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @return Job
    */
-  def jobsJobIdPatch (body: Job, token: String, key: String, jobId: String) : Option[Job] = {
+  def jobsJobIdPatch (body: Job, xOcToken: String, xOcApiKey: String, jobId: String) : Option[Job] = {
     // create path and map variables
     val path = "/jobs/{job_id}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -265,8 +265,8 @@ class JobsApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = body
@@ -296,12 +296,12 @@ class JobsApi(val defBasePath: String = "http://api2.online-convert.com",
   /**
    * Get list of threads defined for the current job.
    * 
-   * @param token Token for authentication.
-   * @param key Api key for the user to filter.
+   * @param xOcToken Token for authentication for the current job
+   * @param xOcApiKey Api key for the user to filter.
    * @param jobId ID of job that needs to be fetched
    * @return List[Thread]
    */
-  def jobsJobIdThreadsGet (token: String, key: String, jobId: String) : Option[List[Thread]] = {
+  def jobsJobIdThreadsGet (xOcToken: String, xOcApiKey: String, jobId: String) : Option[List[Thread]] = {
     // create path and map variables
     val path = "/jobs/{job_id}/threads".replaceAll("\\{format\\}","json").replaceAll("\\{" + "job_id" + "\\}",apiInvoker.escape(jobId))
 
@@ -319,8 +319,8 @@ class JobsApi(val defBasePath: String = "http://api2.online-convert.com",
 
     
     
-    headerParams += "token" -> token
-    headerParams += "key" -> key
+    headerParams += "X-Oc-Token" -> xOcToken
+    headerParams += "X-Oc-Api-Key" -> xOcApiKey
     
 
     var postBody: AnyRef = null
